@@ -1,5 +1,17 @@
 {% for message in messages %}
-  <div class="toast align-items-center {{ message.tags }} border-0" role="alert" x-data x-init="bootstrap.Toast.getOrCreateInstance($el).show()">
+  <div
+    class="toast align-items-center {{ message.tags }} border-0"
+    role="alert"
+    data-bs-delay="5000"
+    x-data="{ toast: bootstrap.Toast.getOrCreateInstance($el) }"
+    x-init="
+      !toast.isShown() && toast.show();
+      setTimeout(() => {
+        toast.hide();
+        // wait animation
+        setTimeout(() => $el.remove(), 500);
+      }, 5000);
+    ">
     <div class="d-flex">
       <div class="toast-body">
         {{ message }}

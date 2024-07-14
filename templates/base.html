@@ -17,7 +17,6 @@
 
   <script src="https://unpkg.com/htmx.org@2.0.0"></script>
   <script src="https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js"></script>
-  <script src="https://unpkg.com/htmx-ext-alpine-morph@2.0.0/alpine-morph.js"></script>  
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -38,7 +37,7 @@
   </style>
 </head>
 
-<body hx-boost="true" hx-ext="response-targets, alpine-morph, loading-states">
+<body hx-boost="true" hx-ext="response-targets">
   <div hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <div id="toast-container" class="toast-container position-fixed p-3 top-0 end-0">
       {% include 'includes/messages.html' %}
