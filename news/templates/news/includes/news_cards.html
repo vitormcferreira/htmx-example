@@ -1,0 +1,65 @@
+{% for news in news_list %}
+  <article class="news col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+    <div class="overflow-hidden d-flex justify-content-center align-items-center rounded" style="height: 200px">
+      <img src="https://picsum.photos/300/300?{{ news.title }}" class="object-fit-cover d-block w-100" alt="{{ news.title }}">
+    </div>
+    <div class="mt-4 px-1">
+      <h3>{{ news.title }}</h3>
+      <p>{{ news.subtitle }}</p>
+      <div
+        hx-get="{% url 'news:comments_count_field' news.pk %}"
+        hx-trigger="revealed"
+        hx-swap="outerHTML"
+        hx-indicator="find [role='status']"
+        >
+        {% include 'includes/secondary_spinner.html' %}
+      </div>
+    </div>
+    <div>
+      <button
+        id="btn-open-more-{{ news.pk }}"
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvas-{{ news.pk }}"
+        >More</button>
+      <div id="offcanvas-{{ news.pk }}" class="offcanvas offcanvas-start" tabindex="-1">
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title">More</h2>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div
+          class="offcanvas-body"
+          hx-get="{% url 'news:more' news.pk %}"
+          hx-trigger="click from:#btn-open-more-{{ news.pk }}"
+          hx-swap="outerHTML"
+          hx-target-error="this"
+          hx-indicator="find [role='status']"
+          >
+          {% include 'includes/spinner.html' %}
+        </div>
+      </div>
+      <a href="{% url 'news:news_edit' news.pk %}" class="btn btn-secondary">Edit</a>
+      <button
+        type="button"
+        class="btn btn-danger"
+        hx-delete="{% url 'news:news_delete' news.pk %}"
+        hx-target="closest .news"
+        hx-swap="delete"
+        hx-confirm="Do you really want to remove the news?"
+        >Remove</button>
+    </div>
+  </article>
+{% endfor %}
+{% if news_list.has_next %}
+  <div
+    id="paginator"
+    class="text-center m-4"
+    hx-get="{% url 'news:news_list' %}?page={{ news_list.next_page_number }}"
+    hx-trigger="revealed"
+    hx-swap="outerHTML"
+    hx-indicator="find [role='status']"
+    >
+    {% include 'includes/spinner_grow.html' %}
+  </div>
+{% endif %}

@@ -1,0 +1,5 @@
+{% if messages %}
+  <div id="toast-container" class="toast-container position-absolute p-3 bottom-0 end-0" hx-swap-oob="afterbegin">
+    {% include 'includes/messages.html' %}
+  </div>
+{% endif %}

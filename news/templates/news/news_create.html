@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block main %}
+  <h1>Add news</h1>
+
+  <form method="post">
+    {{ form|crispy }}
+    {% include 'includes/form_buttons.html' %}
+  </form>
+{% endblock main %}

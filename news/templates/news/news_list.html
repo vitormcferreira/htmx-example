@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <h1 class="mb-5">News</h1>
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <input
+        id="search"
+        type="search"
+        name="search"
+        value="{{ request.GET.search }}"
+        class="textinput form-control form-control-lg mb-4"
+        placeholder="Search"
+        hx-get="{% url 'news:news_list' %}"
+        hx-trigger="search, keyup delay:500ms changed"
+        hx-target="next section"
+        hx-push-url="true">
+    </div>
+  </div>
+
+  <section class="row">
+    {% include 'news/includes/news_cards.html' %}
+  </section>
+{% endblock main %}

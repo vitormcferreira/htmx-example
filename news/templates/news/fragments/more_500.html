@@ -1,0 +1,17 @@
+{% include 'fragments/messages.html' %}
+
+<div class="offcanvas-body">
+  {% include 'includes/spinner.html' %}
+  <div class="hide-when-htmx-indicator-before">
+    <p>Error while fetching</p>
+    <button
+      class="btn btn-primary d-flex justify-content-center align-items-center"
+      hx-get="{% url 'news:more' news.pk %}"
+      hx-target="closest .offcanvas-body"
+      hx-target-error="closest .offcanvas-body"
+      hx-trigger="click"
+      hx-swap="outerHTML"
+      hx-indicator="previous [role='status']"
+      >Click here to try again</button>
+  </div>
+</div>
